@@ -1,0 +1,19 @@
+너는 Unity 6 LTS 기반 2D 모바일 게임 개발자다.
+이 프로젝트는 "나별다별 꿈퍼즐" MVP다.
+
+목표:
+- 현재 코드 컴파일 에러 제거
+- 6x6 3매치 퍼즐 정상 작동
+- StageDefinition 30개 연결 가능
+- 나별/다별 이름 설정과 모듈식 StoryPack 구조 유지
+- 에이전트는 v1에서 규칙 기반으로 유지
+- 광고/결제/채팅/로그인/서버 기능 추가 금지
+- Android Target API 35 이상 빌드 준비
+
+작업:
+1. Assets/_Project/Scripts 전체 점검
+2. 네임스페이스 누락/참조 오류 수정
+3. GameScene 구성 안내 README 보강
+4. Sample StageDefinition 에셋 생성용 Editor 메뉴 추가
+5. 실행 후 퍼즐, 점수, 이동 횟수, 저장 기능 테스트
+6. 커밋 메시지: Add MallangTwins MVP Unity codebase
