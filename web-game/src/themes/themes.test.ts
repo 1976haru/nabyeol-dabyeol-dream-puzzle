@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { THEMES, getTheme, ACTIVE_THEME_ID } from './index';
 import { BLOCK_TYPES } from '../game/types';
 import { ALL_QUIZ_QUESTIONS, QUIZ_SET_KEYS } from '../data/quizzes';
+import { CHARACTERS } from '../data/characters';
 
 describe('theme system', () => {
   it('ACTIVE_THEME_ID 는 등록된 테마를 가리킨다', () => {
@@ -26,6 +27,35 @@ describe('theme system', () => {
     expect(THEMES.justice.hasParentReport).toBe(true);
     expect(THEMES.nabyeol.hasQuiz).toBe(false);
     expect(THEMES.nabyeol.hasParentReport).toBe(false);
+  });
+});
+
+describe('collection character overrides', () => {
+  it('justice 테마는 6개 캐릭터 전부의 표시 이름/설명/능력을 override 한다', () => {
+    const overrides = THEMES.justice.collectionCharacterOverrides;
+    expect(overrides).toBeDefined();
+    for (const c of CHARACTERS) {
+      const o = overrides![c.id];
+      expect(o, c.id).toBeDefined();
+      expect(o.name.length).toBeGreaterThan(0);
+      expect(o.description.length).toBeGreaterThan(0);
+      expect(o.ability.length).toBeGreaterThan(0);
+      // 표시 이름은 기본과 달라야 한다 (예: 나별 → 공정이)
+      expect(o.name).not.toBe(c.name);
+    }
+  });
+
+  it('override 키는 기존 캐릭터 id 와 정확히 일치한다 (저장 데이터 호환)', () => {
+    const overrideIds = Object.keys(THEMES.justice.collectionCharacterOverrides ?? {}).sort();
+    const characterIds = CHARACTERS.map((c) => c.id).sort();
+    expect(overrideIds).toEqual(characterIds);
+  });
+
+  it('nabyeol 테마는 override 가 없어 기본 캐릭터 이름이 유지된다', () => {
+    expect(THEMES.nabyeol.collectionCharacterOverrides).toBeUndefined();
+    // 기본 데이터의 대표 이름이 그대로인지 확인
+    expect(CHARACTERS.find((c) => c.id === 'nabyeol')?.name).toBe('나별');
+    expect(CHARACTERS.find((c) => c.id === 'moon_rabbit')?.name).toBe('달토끼');
   });
 });
 

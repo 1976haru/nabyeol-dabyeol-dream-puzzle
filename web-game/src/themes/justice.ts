@@ -41,4 +41,14 @@ export const JusticeTheme: ThemeConfig = {
     heart: ['🛡️ 내 권리도 친구의 권리도 소중해요.', '🛡️ 어려운 친구를 도와요.'],
     rainbow: ['🏛️ 법원은 정의를 세우는 곳이에요!', '🏛️ 판사는 공정한 결정을 내려요.'],
   },
+
+  // 캐릭터 id 는 그대로 두고 표시 이름/설명/능력 문구만 법교육용으로 바꾼다.
+  collectionCharacterOverrides: {
+    nabyeol: { name: '공정이', description: '모두에게 공평한 법의 마음을 알려주는 친구', ability: '연쇄 점수 보너스' },
+    dabyeol: { name: '질서니', description: '약속과 규칙을 즐겁게 알려주는 친구', ability: '힌트 도움 강화' },
+    moon_rabbit: { name: '약속토끼', description: '친구와의 약속을 소중히 여기는 법 친구', ability: '이동 횟수 보조' },
+    dream_whale: { name: '보호고래', description: '우리의 권리와 안전을 지켜주는 친구', ability: '시작 보너스' },
+    star_fox: { name: '지혜여우', description: '상황을 차분히 보고 올바른 선택을 도와주는 친구', ability: '연쇄 보너스' },
+    cloud_bear: { name: '평화곰', description: '다툼을 줄이고 서로 존중하도록 도와주는 친구', ability: '힌트 도움 강화' },
+  },
 };

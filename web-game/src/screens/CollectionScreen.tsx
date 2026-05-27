@@ -36,6 +36,10 @@ export function CollectionScreen({ onBack }: Props) {
       >
         {CHARACTERS.map((c) => {
           const unlocked = save.unlockedCharacters.includes(c.id);
+          // 표시용 override (테마가 제공할 때만). 캐릭터 id/저장 데이터는 그대로.
+          const override = theme.collectionCharacterOverrides?.[c.id];
+          const displayName = override?.name ?? c.name;
+          const displayDescription = override?.description ?? c.description;
           return (
             <div
               key={c.id}
@@ -49,12 +53,15 @@ export function CollectionScreen({ onBack }: Props) {
               }}
             >
               <div style={{ fontSize: 48 }}>{unlocked ? c.emoji : '❓'}</div>
-              <div style={{ fontSize: 17, fontWeight: 800, color: '#5c7cfa', marginTop: 6 }}>
-                {unlocked ? c.name : '???'}
+              <div style={{ fontSize: 17, fontWeight: 800, color: theme.primary, marginTop: 6 }}>
+                {unlocked ? displayName : '???'}
               </div>
               <div style={{ fontSize: 13, color: '#868e96', marginTop: 4, minHeight: 34 }}>
-                {unlocked ? c.description : `스테이지 ${c.unlockStageId} 클리어 시 해금`}
+                {unlocked ? displayDescription : `스테이지 ${c.unlockStageId} 클리어 시 해금`}
               </div>
+              {unlocked && override?.ability && (
+                <div style={abilityBadge}>{override.ability}</div>
+              )}
             </div>
           );
         })}
@@ -72,4 +79,15 @@ const backBtn: React.CSSProperties = {
   fontSize: 15,
   cursor: 'pointer',
   fontWeight: 600,
+};
+
+const abilityBadge: React.CSSProperties = {
+  display: 'inline-block',
+  marginTop: 8,
+  padding: '3px 10px',
+  borderRadius: 999,
+  background: '#f5f0ff',
+  color: '#5f3dc4',
+  fontSize: 12,
+  fontWeight: 700,
 };

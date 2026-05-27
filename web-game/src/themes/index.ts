@@ -2,7 +2,7 @@ import type { ThemeConfig } from './ThemeConfig';
 import { NabyeolTheme } from './nabyeol';
 import { JusticeTheme } from './justice';
 
-export type { ThemeConfig, BlockVisual } from './ThemeConfig';
+export type { ThemeConfig, BlockVisual, CharacterOverride } from './ThemeConfig';
 
 export const THEMES: Record<string, ThemeConfig> = {
   nabyeol: NabyeolTheme,
