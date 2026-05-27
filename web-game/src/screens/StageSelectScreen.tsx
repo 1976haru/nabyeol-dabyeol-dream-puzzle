@@ -1,5 +1,6 @@
 import { STAGES } from '../data/stages';
 import { loadSave, isStageLocked } from '../save/saveManager';
+import { getTheme } from '../themes';
 
 interface Props {
   onSelect: (stageId: number) => void;
@@ -9,6 +10,7 @@ interface Props {
 /** 스테이지 선택 화면 */
 export function StageSelectScreen({ onSelect, onBack }: Props) {
   const save = loadSave();
+  const theme = getTheme();
 
   return (
     <div style={{ minHeight: '100vh', padding: 20, boxSizing: 'border-box' }}>
@@ -16,7 +18,7 @@ export function StageSelectScreen({ onSelect, onBack }: Props) {
         <button type="button" onClick={onBack} style={backBtn}>
           ← 뒤로
         </button>
-        <h2 style={{ color: 'white', margin: 0, fontSize: 22 }}>스테이지 선택</h2>
+        <h2 style={{ color: 'white', margin: 0, fontSize: 22 }}>{theme.stageSelectTitle}</h2>
       </div>
 
       <div

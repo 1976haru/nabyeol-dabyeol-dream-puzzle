@@ -1,3 +1,7 @@
+import { getTheme } from '../themes';
+
+const theme = getTheme();
+
 interface Props {
   stageName: string;
   score: number;
@@ -37,7 +41,7 @@ export function HUD({
         <span>⭐ {score} / {targetScore}</span>
         <span>👣 {movesLeft}</span>
         <button type="button" onClick={onHint} style={{ ...btnStyle, padding: '4px 10px' }}>
-          💡 힌트
+          {theme.hintLabel}
         </button>
       </div>
 

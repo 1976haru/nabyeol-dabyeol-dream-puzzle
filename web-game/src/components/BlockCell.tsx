@@ -1,5 +1,7 @@
-import { BLOCK_EMOJI, BLOCK_COLOR } from '../game/types';
 import type { Cell } from '../game/types';
+import { getTheme } from '../themes';
+
+const theme = getTheme();
 
 interface Props {
   cell: Cell;
@@ -10,7 +12,8 @@ interface Props {
 
 /** 보드의 한 칸 */
 export function BlockCell({ cell, isSelected, isHint, onClick }: Props) {
-  const bg = cell.type ? BLOCK_COLOR[cell.type] : 'transparent';
+  const visual = cell.type ? theme.blocks[cell.type] : null;
+  const bg = visual ? visual.color : 'transparent';
   return (
     <button
       type="button"
@@ -19,7 +22,7 @@ export function BlockCell({ cell, isSelected, isHint, onClick }: Props) {
       style={{
         width: '100%',
         aspectRatio: '1 / 1',
-        border: isSelected ? '3px solid #5c7cfa' : '2px solid rgba(255,255,255,0.5)',
+        border: isSelected ? `3px solid ${theme.primary}` : '2px solid rgba(255,255,255,0.5)',
         borderRadius: 12,
         background: bg,
         fontSize: 'clamp(18px, 6vw, 30px)',
@@ -38,7 +41,7 @@ export function BlockCell({ cell, isSelected, isHint, onClick }: Props) {
         touchAction: 'manipulation',
       }}
     >
-      {cell.type ? BLOCK_EMOJI[cell.type] : ''}
+      {visual ? visual.emoji : ''}
     </button>
   );
 }

@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Board, Pos } from '../types';
 import { generateBoard } from '../engine/boardGenerator';
 import { isValidSwap, swapCells } from '../engine/boardActions';
@@ -34,8 +34,17 @@ function freshBoard(): Board {
   return board;
 }
 
-/** 한 스테이지의 게임 상태와 조작 함수를 제공하는 훅 */
-export function useGame(stage: Stage): UseGameResult {
+/**
+ * 한 스테이지의 게임 상태와 조작 함수를 제공하는 훅.
+ * @param onResolve 유효한 교환으로 매치가 해소될 때마다 연쇄 수와 함께 호출 (이벤트성 콜백)
+ */
+export function useGame(stage: Stage, onResolve?: (cascade: number) => void): UseGameResult {
+  // 콜백은 ref 로 보관해 handleCellClick 의 의존성을 늘리지 않는다
+  const onResolveRef = useRef(onResolve);
+  useEffect(() => {
+    onResolveRef.current = onResolve;
+  });
+
   const [board, setBoard] = useState<Board>(() => freshBoard());
   const [score, setScore] = useState(0);
   const [movesLeft, setMovesLeft] = useState(stage.maxMoves);
@@ -92,6 +101,7 @@ export function useGame(stage: Stage): UseGameResult {
         setMovesLeft(newMoves);
         setSelected(null);
         setLastCascade(result.cascadeCount);
+        onResolveRef.current?.(result.cascadeCount);
 
         // 클리어 / 실패 판정
         if (newScore >= stage.targetScore) {

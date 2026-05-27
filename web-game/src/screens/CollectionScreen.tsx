@@ -1,5 +1,6 @@
 import { CHARACTERS } from '../data/characters';
 import { loadSave } from '../save/saveManager';
+import { getTheme } from '../themes';
 
 interface Props {
   onBack: () => void;
@@ -8,6 +9,7 @@ interface Props {
 /** 캐릭터 도감 화면 */
 export function CollectionScreen({ onBack }: Props) {
   const save = loadSave();
+  const theme = getTheme();
   const unlockedCount = CHARACTERS.filter((c) => save.unlockedCharacters.includes(c.id)).length;
 
   return (
@@ -16,7 +18,7 @@ export function CollectionScreen({ onBack }: Props) {
         <button type="button" onClick={onBack} style={backBtn}>
           ← 뒤로
         </button>
-        <h2 style={{ color: 'white', margin: 0, fontSize: 22 }}>도감</h2>
+        <h2 style={{ color: 'white', margin: 0, fontSize: 22 }}>{theme.collectionTitle}</h2>
       </div>
 
       <p style={{ color: 'white', textAlign: 'center', fontSize: 16, marginTop: 12 }}>

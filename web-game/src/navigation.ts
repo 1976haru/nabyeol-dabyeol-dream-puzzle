@@ -1,1 +1,1 @@
-export type ScreenName = 'menu' | 'game' | 'stage-select' | 'collection';
+export type ScreenName = 'menu' | 'game' | 'stage-select' | 'collection' | 'quiz' | 'report';

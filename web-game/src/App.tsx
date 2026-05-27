@@ -4,6 +4,8 @@ import { MenuScreen } from './screens/MenuScreen';
 import { StageSelectScreen } from './screens/StageSelectScreen';
 import { CollectionScreen } from './screens/CollectionScreen';
 import { GameScreen } from './screens/GameScreen';
+import { QuizScreen } from './screens/QuizScreen';
+import { ParentReportScreen } from './screens/ParentReportScreen';
 import { InstallBanner } from './components/InstallBanner';
 
 export default function App() {
@@ -22,6 +24,8 @@ export default function App() {
         <StageSelectScreen onSelect={(id) => navigate('game', id)} onBack={() => setScreen('menu')} />
       )}
       {screen === 'collection' && <CollectionScreen onBack={() => setScreen('menu')} />}
+      {screen === 'quiz' && <QuizScreen onBack={() => setScreen('menu')} />}
+      {screen === 'report' && <ParentReportScreen onBack={() => setScreen('menu')} />}
       {screen === 'game' && (
         <GameScreen
           key={stageId}

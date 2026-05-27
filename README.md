@@ -13,6 +13,17 @@
 - 힌트 / 효과음 / 튜토리얼
 - PWA 설치 지원 (홈화면 추가 → 앱처럼 실행)
 - Android(Capacitor) 빌드 지원
+- **테마 시스템**: 한 줄 설정으로 게임 전체(블록·문구·배경) 전환. 법무부 버전(법질서 교육 + OX 퀴즈 + 부모 보고서) 포함
+
+## 테마 전환
+`web-game/src/themes/index.ts` 의 `ACTIVE_THEME_ID` 한 줄만 바꾸면 됩니다.
+```ts
+export const ACTIVE_THEME_ID = 'nabyeol'; // 기본 (꿈퍼즐)
+// export const ACTIVE_THEME_ID = 'justice'; // 법무부 버전 (법질서 교육 + OX 퀴즈)
+```
+- `nabyeol` — 기본 꿈퍼즐
+- `justice` — 6종 블록을 법 상징(⚖️🔨📜🤝🛡️🏛️)으로 reskin, 큰 연쇄 시 교육 메시지, 메뉴에 **법 퀴즈**·**부모 학습 보고서** 추가
+- 새 테마 추가: `src/themes/justice.ts` 를 참고해 새 파일을 만들고 `index.ts` 의 `THEMES` 에 등록
 
 ## 로컬 실행
 ```bash
@@ -36,10 +47,11 @@ React + Vite + TypeScript + PWA + Capacitor(Android)
 web-game/
   src/
     game/        # 게임 엔진 (매치·낙하·연쇄)·타입·훅
+    themes/      # 테마 시스템 (nabyeol/justice, ACTIVE_THEME_ID 한 줄 전환)
     components/  # 보드, 셀, HUD, 팝업 등 UI
-    screens/     # 메뉴/스테이지선택/도감/게임 화면
-    data/        # 스테이지·캐릭터·스토리 데이터
-    save/        # localStorage 저장 관리
+    screens/     # 메뉴/스테이지선택/도감/게임/퀴즈/부모보고서 화면
+    data/        # 스테이지·캐릭터·스토리·퀴즈 데이터
+    save/        # localStorage 저장 관리 (학습 진도 포함)
     audio/       # WebAudio 효과음
   public/        # manifest, 서비스워커, 아이콘, 개인정보처리방침
   android/       # Capacitor Android 프로젝트

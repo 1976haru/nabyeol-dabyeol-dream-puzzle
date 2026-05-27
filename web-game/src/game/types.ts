@@ -3,29 +3,12 @@
 /** 보드 한 변의 칸 수 */
 export const BOARD_SIZE = 8;
 
-/** 블록 종류 (꿈나라 테마) */
+/**
+ * 블록 종류 (고정 6슬롯).
+ * 엔진은 이 키로만 동작하고, 각 슬롯의 이모지/색은 테마가 결정한다 (src/themes).
+ */
 export const BLOCK_TYPES = ['star', 'moon', 'cloud', 'bubble', 'heart', 'rainbow'] as const;
 export type BlockType = (typeof BLOCK_TYPES)[number];
-
-/** 블록 종류별 이모지 (UI 표시용) */
-export const BLOCK_EMOJI: Record<BlockType, string> = {
-  star: '⭐',
-  moon: '🌙',
-  cloud: '☁️',
-  bubble: '🫧',
-  heart: '💜',
-  rainbow: '🌈',
-};
-
-/** 블록 종류별 배경색 */
-export const BLOCK_COLOR: Record<BlockType, string> = {
-  star: '#fff3bf',
-  moon: '#d0bfff',
-  cloud: '#e7f5ff',
-  bubble: '#c5f6fa',
-  heart: '#fcc2d7',
-  rainbow: '#ffd8a8',
-};
 
 /** 보드의 한 칸 */
 export interface Cell {

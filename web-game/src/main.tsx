@@ -2,6 +2,10 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.tsx';
+import { applyThemeCss } from './themes';
+
+// 활성 테마의 배경/강조색을 CSS 변수로 주입 (렌더 전에 1회)
+applyThemeCss();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

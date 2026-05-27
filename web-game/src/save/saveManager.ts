@@ -13,6 +13,8 @@ export interface SaveData {
   unlockedCharacters: string[];
   /** 효과음 on/off */
   soundOn: boolean;
+  /** 맞힌 교육 퀴즈 문제 id 목록 (법무부 버전 학습 진도) */
+  educationProgress: string[];
 }
 
 export const DEFAULT_SAVE: SaveData = {
@@ -21,6 +23,7 @@ export const DEFAULT_SAVE: SaveData = {
   highScores: {},
   unlockedCharacters: [...DEFAULT_UNLOCKED],
   soundOn: true,
+  educationProgress: [],
 };
 
 /** 저장 데이터 불러오기. 손상/없음 시 기본값 반환 */
@@ -38,6 +41,7 @@ export function loadSave(): SaveData {
       ),
       clearedStages: parsed.clearedStages ?? [],
       highScores: parsed.highScores ?? {},
+      educationProgress: parsed.educationProgress ?? [],
     };
   } catch {
     return { ...DEFAULT_SAVE };
@@ -88,6 +92,16 @@ export function setSoundOn(soundOn: boolean): SaveData {
   const data = loadSave();
   data.soundOn = soundOn;
   writeSave(data);
+  return data;
+}
+
+/** 교육 퀴즈를 맞히면 학습 진도에 기록 (중복 제외) */
+export function markEducation(quizId: string): SaveData {
+  const data = loadSave();
+  if (!data.educationProgress.includes(quizId)) {
+    data.educationProgress = [...data.educationProgress, quizId];
+    writeSave(data);
+  }
   return data;
 }
 
